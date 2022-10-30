@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<!--
+	Telephasic by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+  <head>
+    <title>Fortune Cookie Generator</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=no"
+    />
+    <link rel="stylesheet" href="assets/css/main.css" />
+  </head>
+
+  <body class="homepage is-preload">
+    <div id="page-wrapper">
+      <!-- Header -->
+      <div id="header-wrapper">
+        <div id="header" class="container">
+          <!-- Logo -->
+
+          <h1 id="logo"><a href="index.html">Fortune Cookie</a></h1>
+        </div>
+
+        <!-- Hero -->
+        <section id="hero" class="container">
+          <header>
+            <img src="images\Fortune_cookie.png" alt="" width="100px" />
+          </header>
+          <div id="cookie-input"></div>
+          <ul class="actions">
+            <li>
+              <a href="#" class="button" onclick="getCookie()">Get a Cookie!</a>
+            </li>
+          </ul>
+        </section>
+      </div>
+
+      <!-- Footer -->
+      <div id="footer-wrapper">
+        <div id="footer" class="container">
+          <header class="major">
+            <h2>API Fetch done by Manuele Castro</h2>
+            <p>Follow me:</p>
+          </header>
+          <div class="row">
+            <section class="col-6 col-12-narrower">
+              <div class="row gtr-0">
+                <ul class="divided icons col-6 col-12-mobile">
+                  <li class="icon brands fa-github">
+                    <a href="https://github.com/manuelecastro"
+                      ><span class="extra">github.com/</span>manuelecastro</a
+                    >
+                  </li>
+                  <li class="icon brands fa-linkedin">
+                    <a href="https://www.linkedin.com/in/manuelecastro/"
+                      ><span class="extra">linkedin.com/</span>manuelecastro</a
+                    >
+                  </li>
+                </ul>
+              </div>
+            </section>
+          </div>
+        </div>
+        <div id="copyright" class="container">
+          <ul class="menu">
+            <li>&copy; Untitled. All rights reserved.</li>
+            <li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+      function getCookie() {
+        fetch("https://api.adviceslip.com/advice")
+          .then((response) => {
+            if (!response.ok) {
+              throw Error("FERROU FAMILIA!");
+            }
+            return response.json();
+          })
+          .then($("#cookie-input").empty())
+          .then((data) => {
+            console.log(data.slip.advice);
+            const html = `            
+			<h2 id="cookieInput">${data.slip.advice}</h2>
+            `;
+            document
+              .querySelector("#cookie-input")
+              .insertAdjacentHTML("afterbegin", html);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+    </script>
+
+    <script src="assets/js/jquery.min.js"></script>
+  </body>
+</html>
